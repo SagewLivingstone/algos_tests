@@ -1,6 +1,8 @@
 import math
 import numpy as np
 
+from random import randint
+
 def merge_sort(A, p, r):
     if p < r:
         q = math.floor((p+r) / 2)
@@ -33,13 +35,25 @@ def merge(A, p, q, r):
     except IndexError as e:
         raise(e)
 
+def quicksort(arr):
+    if len(arr) < 2:
+        return arr
+    else:
+        k = randint(0, len(arr)-1)
+        working = list(arr[:k]) + list(arr[k+1:])
+        left = [i for i in working if i <= arr[k]]
+        right = [i for i in working if i > arr[k]]
+        return quicksort(left) + [arr[k]] + quicksort(right)
+
+
 def main():
     # Generate random array for testing
-    A = np.random.randint(0, 15, size=15)
+    A = np.random.randint(0, 50, size=15)
     print(A)
 
     # Test sorting them
-    merge_sort(A, 0, len(A)-1)
+    # merge_sort(A, 0, len(A)-1)
+    A = quicksort(A)
     print(A)
 
 
