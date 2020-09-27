@@ -7,14 +7,17 @@ def person_is_seller(name):
 def find_seller(graph):
     search_queue = deque()
     search_queue += graph['you']
-
+    searched = []
     while search_queue:
         person = search_queue.popleft()
-        if person_is_seller(person):
-            print(f"{person} is a seller!")
-            return True
-        else:
-            search_queue += graph[person]
+        if person not in searched:
+            if person_is_seller(person):
+                print(f"{person} is a seller!")
+                return True
+            else:
+                search_queue += graph[person]
+    
+    return False
 
 def main():
     graph = {}
